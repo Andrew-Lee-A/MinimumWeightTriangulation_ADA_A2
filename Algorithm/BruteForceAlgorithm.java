@@ -2,7 +2,7 @@ package Algorithm;
 // Brute force algorithm that solves the convex polygon triangulation problem for the minimum sum of interior edges
 // Student: Andrew Lee 17983766
 // Student: 
-class BruteForceAlgorithm {
+public class BruteForceAlgorithm {
 
     /**
      * 
@@ -13,7 +13,7 @@ class BruteForceAlgorithm {
      */
     public static double Triangulate(Point[] vertices, int i, int j) {
 
-        //cannot triangulate a polgon with less than 3 edges
+        //cannot triangulate a polygon with less than 3 edges
         if (j <= i + 2) {
             return 0;
         }
@@ -21,18 +21,18 @@ class BruteForceAlgorithm {
         // cost represents the final length of the triangulation from the polygon 
         double cost = Double.MAX_VALUE;
 
-        // triangulate all possible vertices with the intial two edges being i and j
+        // triangulate all possible vertices with the initial two edges being i and j
         for (int k = i + 1; k <= j - 1; k++) {
 
             // The weight of a triangulation is the length perimeter of the triangle
             double weight;
 
-            // if the k value is the intial vertex, an edge is drawn between j and k
+            // if the k value is the initial vertex, an edge is drawn between j and k
             if (k == i + 1) {
                 weight = vertices[j].dist(vertices[k]);
                 System.out.println(weight + ": (j,k)" + j + "," + k + " : " + i);
-            
-            // if the k value is the last vertex, an edge is drawn between i and k  
+
+            // if the k value is the last vertex, an edge is drawn between i and k
             } else if (k == j - 1) {
                 weight = vertices[k].dist(vertices[i]);
                 System.out.println(weight + ": (i,k)" + i + "," + k + " : " + j);
@@ -82,7 +82,7 @@ class BruteForceAlgorithm {
             new Point(1, 5), new Point(3, 3), new Point(2, 1)
         };
 
-        System.out.println(Triangulate(vertices6, 0, vertices6.length - 1));
+        System.out.println(Triangulate(vertices3, 0, vertices3.length - 1));
     }
 
 }

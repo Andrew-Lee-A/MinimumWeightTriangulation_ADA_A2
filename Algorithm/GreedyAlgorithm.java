@@ -18,7 +18,7 @@ class GreedyAlgorithm {
      */
     public static double MWT(Point[] vertices, int i, int j) {
 
-        //cannot triangulate a polgon with less than 3 edges
+        //cannot triangulate a polygon with less than 3 edges
         if (j <= i + 2) {
             return 0;
         }
