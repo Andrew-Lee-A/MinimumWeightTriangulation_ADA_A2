@@ -23,5 +23,10 @@ public class Point
     return Math.sqrt((this.x - p.x) * (this.x - p.x)
                      + (this.y - p.y) * (this.y - p.y));
   }
+  
+  @Override
+  public String toString(){
+      return "(" + x + ", " + y + ")";
+  }
 }
  

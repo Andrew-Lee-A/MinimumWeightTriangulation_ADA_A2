@@ -1,130 +1,136 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Main;
+package Algorithm;
+// Brute force algorithm that solves the convex polygon triangulation problem for the minimum sum of interior edges
+// Student: Andrew Lee 17983766
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-/**
- *
- * @author Andrew_PC
- */
-// Class to store a point in the Euclidean plane
-class Point
-{
-  int x, y;
-  public Point(int x, int y)
-  {
-    this.x = x;
-    this.y = y;
-  }
- 
-  // Utility function to return the distance between two
-  // vertices in a 2-dimensional plane
-  public double dist(Point p)
-  {
- 
-    // The distance between vertices `(x1, y1)` & `(x2,
-    // y2)` is `√((x2 − x1) ^ 2 + (y2 − y1) ^ 2)`
-    return Math.sqrt((this.x - p.x) * (this.x - p.x)
-                     + (this.y - p.y) * (this.y - p.y));
-  }
-  
-  @Override
-  public String toString(){
-    String s  = "("+this.x+", "+this.y+")";  
-    return s;
-  }
-}
- 
-class GFG
-{
- 
-  // Function to calculate the weight of optimal
-  // triangulation of a convex polygon represented by a
-  // given set of vertices `vertices[i..j]`
-  public static double MWT(Point[] vertices, int i, int j)
-  {
-      System.out.println(" "+ i + ", "+ j + vertices[i] + vertices[j]);
-    // If the polygon has less than 3 vertices,
-    // triangulation is not possible
-    if (j <  i + 2)
-    {
-      return 0;
-    }
- 
-    // keep track of the total weight of the minimum
-    // weight triangulation of `MWT(i,j)`
-    double cost = Double.MAX_VALUE;
- 
-    // consider all possible triangles `ikj` within the
-    // polygon
-    for (int k = i + 2; k <= j - 1; k++)
-    {
-        System.out.println("Enters," + i + ", "+ k + ", " + j);
-      // The weight of a triangulation is the length
-      // of perimeter of the triangle
-      double weight = vertices[i].dist(vertices[k]);
-        System.out.println(weight + " "+ i + ", "+ k + vertices[i] + vertices[k]);
- 
-      // choose the vertex `k` that leads to the
-      // minimum total weight
-      cost = Double.min(cost,
-                        weight + MWT(vertices, i, k)
-                        + MWT(vertices, k, j));
-        System.out.println(cost);
-    }
-    return cost;
-  }
-  
-  public static double greedy(Point[] vertices){
-    if (vertices.length < 3)
-    {
-      return 0;
-    }
-    double cost = Double.MAX_VALUE;
+// Student: 
+public class test {
     
-    int j = 0;
-    int k = 0;
-    for (int i = 0; i < vertices.length; i++){
-        j = i+1;
-        k =j+1;
-        for (int count = 1; count < vertices.length-2; count++){
-            k = (k+1)%vertices.length;
+    /**
+     * 
+     * @param vertices
+     * @param i
+     * @param j
+     * @return the minimum sum of if the interior edges given by the array of vertices
+     */
+    public static Solution Triangulate(Point[] vertices, int i, int j) {
+        Solution s = new Solution();
+    
+        
+        //cannot triangulate a polygon with less than 3 edges
+        if (j <= i + 2) {
+            s.cost = 0;
+            return s;
         }
+        
+        // cost represents the final length of the triangulation from the polygon 
+        //double cost = Double.MAX_VALUE;
+
+        // triangulate all possible vertices with the initial two edges being i and j
+        for (int k = i + 1; k <= j - 1; k++) {
+
+            // The weight of a triangulation is the length perimeter of the triangle
+            double weight;
+            List<Point> q1 = new ArrayList<>();
+            List<Point> q2 = new ArrayList<>();
+
+            // if the k value is the initial vertex, an edge is drawn between j and k
+            if (k == i + 1) {
+                weight = vertices[j].dist(vertices[k]);
+                System.out.println(weight + ": (j,k)" + j + "," + k + " : " + i);
+                q1.add(vertices[j]);
+                q2.add(vertices[k]);
+                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[j], vertices[k])));
+            // if the k value is the last vertex, an edge is drawn between i and k
+            } else if (k == j - 1) {
+                weight = vertices[k].dist(vertices[i]);
+                System.out.println(weight + ": (i,k)" + i + "," + k + " : " + j);
+                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[i], vertices[k])));
+                q1.add(vertices[i]);
+                q2.add(vertices[k]);
+            // otherwise, a vertex is chosen that leads two to edges drawn. j to k and i to k.
+            } else {
+                weight = vertices[j].dist(vertices[k]) + vertices[k].dist(vertices[i]);
+                System.out.println(weight + ": " + vertices[j].dist(vertices[k]) + ": " + j + "," + k + " + " + vertices[k].dist(vertices[i]) + ": " + i + "," + k);
+                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[j], vertices[k])));
+                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[i], vertices[k])));
+                q1.add(vertices[i]);
+                q2.add(vertices[k]);
+                q1.add(vertices[j]);
+                q2.add(vertices[k]);
+            }
+
+            Solution left = Triangulate(vertices, i, k);
+            Solution right = Triangulate(vertices, k, j);
+            
+            double costOfBothSides = weight + left.cost + right.cost;
+            if (s.cost > costOfBothSides){
+                
+                s.cost = costOfBothSides;
+                left.p1.addAll(right.p1);
+                q1.addAll(left.p1);
+                s.p1 = q1;
+                
+                left.p2.addAll(right.p2);
+                q2.addAll(left.p2);
+                s.p2 = q2;
+            }
+                
+//            s.cost = Double.min(s.cost, weight + Triangulate(vertices, i, k).cost
+//                    + Triangulate(vertices, k, j).cost);
+                    
+            System.out.println("Cost: " + s.cost);
+        }
+        return s;
     }
-    return cost;
-  }
- 
-  public static double calculateAngle(double a, double b, double c){
-       return Math.toDegrees(Math.acos((Math.pow(a, 2) + Math.pow(b, 2) - Math.pow(c, 2)) / (2 * a * b)));
-  }
-  
-  // Driver code
-  public static void main(String[] args)
-  {
- 
+
+    //Main method for testing
     // vertices are given in clockwise order
-    Point[] vertices
-      = { new Point(0, 0), new Point(2, 0),
-         new Point(2, 1), new Point(1, 2),
-         new Point(0, 1) };
- 
-    System.out.println(MWT(vertices,
-                           0, vertices.length - 1));
-    
-      System.out.println(GFG.calculateAngle(10, 10, 10));
-      if (Math.round(GFG.calculateAngle(10, 10, 10)) == 60.0){
-          System.out.println("true");
-      }
-      else{
-          System.out.println("false");
-      }
-      
-//      System.out.println(Math.sqrt((0-1) * (0-1)
-//                     + (0-2) * (0-2)));
-  }
+    public static void main(String[] args) {
+
+        Point[] vertices
+                = {new Point(0, 0), new Point(2, 0),
+                    new Point(2, 1), new Point(1, 2),
+                    new Point(0, 1)};
+
+//        System.out.println(Triangulate(vertices,
+//                0, vertices.length - 1));
+
+        System.out.println("/n/n");
+
+        //Triangle
+        Point[] vertices3 = {
+            new Point(0, 0), new Point(1, 1), new Point(0, 1)
+        };
+
+
+        //Square
+        Point[] vertices4 = {
+            new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 0)
+        };
+
+                System.out.println("Square: " + Triangulate(vertices4,
+                0, vertices4.length - 1));
+                
+        //pentagon (Greedy fails on this shape)
+        Point[] vertices5 = {
+            new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6,1),
+            new Point(5,-2)
+        };
+        
+        System.out.println("\nPolygon");
+        System.out.println(Triangulate(vertices5, 0, vertices5.length - 1));
+        
+        //Hexagon
+        Point[] vertices6 = {
+            new Point(0, 0), new Point(-2, 2), new Point(-1, 4),
+            new Point(1, 5), new Point(3, 3), new Point(2, 1)
+        };
+
+        //System.out.println(Triangulate(vertices3, 0, vertices3.length - 1));
+    }
+
 }
- 
-// This code is contributed by Priiyadarshini Kumari
