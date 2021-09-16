@@ -19,6 +19,7 @@ public class Solution {
     
     @Override
     public String toString(){
-        return Double.toString(this.cost) + "\n" + p1.toString() + "\n"+ p2.toString();
+//        return Double.toString(this.cost) + "\n" + p1.toString() + "\n"+ p2.toString();
+            return Double.toString(this.cost) + p1.toString() + p2.toString();
     }
 }

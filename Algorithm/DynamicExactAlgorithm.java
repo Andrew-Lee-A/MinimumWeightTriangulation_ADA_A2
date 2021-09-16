@@ -21,6 +21,7 @@ class DynamicExactAlgorithm {
                 // If the polygon has less than 3 vertices, triangulation is
                 // not possible
                 if (j <= i + 2) {
+                    T[i][j] = 0.0;
                     continue;
                 }
 
