@@ -16,7 +16,7 @@ class GreedyAlgorithm {
      * @param j
      * @return the minimum sum of if the interior edges given by the array of vertices
      */
-    public static double MWT(Point[] vertices, int i, int j) {
+    public static double Triangulate(Point[] vertices, int i, int j) {
 
         //cannot triangulate a polygon with less than 3 edges
         if (j <= i + 2) {
@@ -72,9 +72,9 @@ class GreedyAlgorithm {
         } else {
             weight = vertices[j].dist(vertices[shortest]) + vertices[shortest].dist(vertices[i]);
         }
-
+        
         System.out.println("Shortest: " + shortest + " Weight:" + weight);
-        cost = weight + MWT(vertices, i, shortest) + MWT(vertices, shortest, j);
+        cost = weight + Triangulate(vertices, i, shortest) + Triangulate(vertices, shortest, j);
         System.out.println("Cost: " + cost);
         return cost;
     }
@@ -103,13 +103,21 @@ class GreedyAlgorithm {
             new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 0)
         };
 
+        //Pentagon (Greedy fails on this shape)
+        Point[] vertices5 = {
+            new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6,1),
+            new Point(5,-2)
+        };
+        
+        System.out.println(Triangulate(vertices5, 0, vertices5.length - 1));
+        
         //Hexagon
         Point[] vertices6 = {
             new Point(0, 0), new Point(-2, 2), new Point(-1, 4),
             new Point(1, 5), new Point(3, 3), new Point(2, 1)
         };
 
-        System.out.println(MWT(vertices6, 0, vertices6.length - 1));
+        //System.out.println(Triangulate(vertices6, 0, vertices6.length - 1));
     }
 
 }

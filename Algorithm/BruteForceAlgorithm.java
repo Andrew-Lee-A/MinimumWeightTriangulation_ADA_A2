@@ -3,7 +3,7 @@ package Algorithm;
 // Student: Andrew Lee 17983766
 // Student: 
 public class BruteForceAlgorithm {
-
+    
     /**
      * 
      * @param vertices
@@ -76,13 +76,21 @@ public class BruteForceAlgorithm {
             new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 0)
         };
 
+        //pentagon (Greedy fails on this shape)
+        Point[] vertices5 = {
+            new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6,1),
+            new Point(5,-2)
+        };
+        
+        System.out.println(Triangulate(vertices5, 0, vertices5.length - 1));
+        
         //Hexagon
         Point[] vertices6 = {
             new Point(0, 0), new Point(-2, 2), new Point(-1, 4),
             new Point(1, 5), new Point(3, 3), new Point(2, 1)
         };
 
-        System.out.println(Triangulate(vertices3, 0, vertices3.length - 1));
+        //System.out.println(Triangulate(vertices3, 0, vertices3.length - 1));
     }
 
 }
