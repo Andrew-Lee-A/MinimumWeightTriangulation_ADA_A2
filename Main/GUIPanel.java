@@ -1,5 +1,7 @@
 package Main;
 
+import Algorithm.BFA;
+import Algorithm.DrawingPanel;
 import Algorithm.PolygonShapes;
 
 import javax.swing.*;
@@ -13,13 +15,15 @@ public class GUIPanel extends JPanel {
     // Command Panel
     private final JPanel controlPanel;
 
+    private Polygon selectedPolygon;
+
     // Variables
     public final int PANEL_WIDTH = 900;
-    public final int PANEL_HEIGHT = 500;
+    public final int PANEL_HEIGHT = 700;
 
     JPanel drawPanel = new JPanel();
     {
-        drawPanel.setPreferredSize(new Dimension(400, 400));
+        drawPanel.setPreferredSize(new Dimension(PANEL_WIDTH-100, PANEL_HEIGHT-100));
         drawPanel.setBackground(Color.white);
     }
 
@@ -36,7 +40,7 @@ public class GUIPanel extends JPanel {
         polygonComboBox.addActionListener(e -> polygonSelection());
 
         // Initialise Label
-        sumOfLengths = new JLabel("Sum of Lengths: ");
+        sumOfLengths = new JLabel();
 
         // Initialise Buttons
         bruteForceBtn = new JButton("Brute Force Algorithm");
@@ -70,17 +74,34 @@ public class GUIPanel extends JPanel {
     public void polygonSelection() {
         int index = polygonComboBox.getSelectedIndex();
 
-        if (index == 1){
-            setPanel(new PolygonPanel(PolygonShapes.createTriangle()));
-        }
-        else if (index == 2){
-            setPanel(new PolygonPanel(PolygonShapes.createSquare()));
-        }
-        else {
-            setPanel(new PolygonPanel(PolygonShapes.createTriangle()));
+        switch (index) {
+            // Triangle
+            case 1:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createTriangle()));
+                break;
+            // Square
+            case 2:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createSquare()));
+                break;
+            case 3:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHexagon()));
+                break;
+            case 4:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createSeptagon()));
+                break;
+            case 5:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createOctagon()));
+                break;
+            case 6:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHendacagon()));
+                break;
+            // Anything Else
+            default:
+                JOptionPane.showMessageDialog(this, "Polygon Not Selected");
+                break;
         }
 
-        sumOfLengths.setText("Sum of Lengths: " + index);
+        updateText(0);
     }
 
     // Redraws the draw panel
@@ -93,14 +114,21 @@ public class GUIPanel extends JPanel {
     }
 
     public void exactApproach(){
-        JOptionPane.showMessageDialog(this, "Exact Approach");
+        JOptionPane.showMessageDialog(this, "Exact Approach\nNot implemented yet.");
     }
 
     public void bruteForceApproach(){
-        JOptionPane.showMessageDialog(this, "Brute Force Approach");
+        Algorithm.Point[] vertices = PolygonShapes.getPointArray(selectedPolygon);
+
+        double cost = new BFA().Triangulate(vertices, 0, vertices.length-1);
+        updateText(cost);
     }
 
     public void greedyApproach(){
-        JOptionPane.showMessageDialog(this, "Greedy Approach");
+        JOptionPane.showMessageDialog(this, "Greedy Approach\nNot implemented yet.");
+    }
+
+    public void updateText(double cost){
+        sumOfLengths.setText(String.format("Sum of lengths: %,.2f", cost));
     }
 }
