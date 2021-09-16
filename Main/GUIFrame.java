@@ -4,18 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Point;
 
-public class GUIFrame {
-    public static void main(String[] args) {
-        // Panel
-        GUIPanel panel = new GUIPanel();
+public class GUIFrame extends JFrame{
+    // Panel
+    GUIPanel panel = new GUIPanel();
 
+    public GUIFrame(){
+        setLayout(new BorderLayout());
+        getContentPane().add(panel, BorderLayout.SOUTH);
+        setTitle("Tessellation");
+
+        // Resize frame to fit JPanel
+        pack();
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
         // Create frame to hold JPanel subclass
-        JFrame frame = new JFrame("Tessellation");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Add instance of panel to the frame
-        frame.getContentPane().add(panel);
-        // resize frame to fit JPanel
-        frame.pack();
+        GUIFrame frame = new GUIFrame();
 
         // Position frame on center of screen
         Toolkit tk = Toolkit.getDefaultToolkit();

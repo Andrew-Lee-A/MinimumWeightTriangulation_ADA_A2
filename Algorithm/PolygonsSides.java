@@ -2,19 +2,13 @@ package Algorithm;
 
 public class PolygonsSides {
 
-    //Triangle
-    public static final Point[] vertices3 = {
-            new Point(0, 0), new Point(1, 1), new Point(0, 1)
+    public static final int[][] POLYGON_3_SIDES = {
+            {150, 400, 200},
+            {80, 160, 300}
     };
 
-    //Square
-    public static final Point[] vertices4 = {
-            new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 0)
-    };
-
-    //Hexagon
-    public static final Point[] vertices6 = {
-            new Point(0, 0), new Point(-2, 2), new Point(-1, 4),
-            new Point(1, 5), new Point(3, 3), new Point(2, 1)
+    public static final int[][] POLYGON_4_SIDES = {
+            {150, 400, 200, 300},
+            {80, 160, 300, 220}
     };
 }

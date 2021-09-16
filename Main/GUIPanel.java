@@ -1,6 +1,6 @@
 package Main;
 
-import Algorithm.PolygonsSides;
+import Algorithm.PolygonShapes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,30 +9,36 @@ public class GUIPanel extends JPanel {
     // JPanel Components
     private final JComboBox<String> polygonComboBox;
     private final JButton bruteForceBtn, exactBtn, greedyBtn, stopBtn;
-    private final FlowLayout layout;
     private final JLabel sumOfLengths;
+    // Command Panel
+    private final JPanel controlPanel;
 
     // Variables
-    public final int PANEL_WIDTH = 700;
+    public final int PANEL_WIDTH = 900;
     public final int PANEL_HEIGHT = 500;
+
+    JPanel drawPanel = new JPanel();
+    {
+        drawPanel.setPreferredSize(new Dimension(400, 400));
+        drawPanel.setBackground(Color.white);
+    }
 
     public GUIPanel() {
         super();
         setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
+        setLayout(new BorderLayout());
 
-        layout = new FlowLayout();
-        setLayout(layout);
-
-        // Combo box
+        // Initialise Combo box
         String[] polygonOptions = {"Select a Polygon", "3 sides - Triangle", "4 sides - Square",
                 "6 sides - Hexagon", "7 sides - Heptagon", "8 sides - Octagon", "11 sides - Hendecagon",
                 "17 sides - Heptagon", "20 sides - Icosagon", "36 sides - Hextriacontagon"};
         polygonComboBox = new JComboBox<>(polygonOptions);
+        polygonComboBox.addActionListener(e -> polygonSelection());
 
-        // Label
+        // Initialise Label
         sumOfLengths = new JLabel("Sum of Lengths: ");
 
-        // Buttons
+        // Initialise Buttons
         bruteForceBtn = new JButton("Brute Force Algorithm");
         bruteForceBtn.addActionListener(e -> bruteForceApproach());
         exactBtn = new JButton("Dynamic Exact Algorithm");
@@ -42,20 +48,48 @@ public class GUIPanel extends JPanel {
         stopBtn = new JButton("Stop");
         stopBtn.setEnabled(false);
 
-        PolygonPanel pp = new PolygonPanel();
-        add(pp);
-
+        // Layout Commands Panel with Flow Layout
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout());
         // Combo Box
-        add(polygonComboBox);
-
+        controlPanel.add(polygonComboBox);
         // Label
-        add(sumOfLengths);
-
+        controlPanel.add(sumOfLengths);
         // Buttons
-        add(stopBtn);
-        add(bruteForceBtn);
-        add(exactBtn);
-        add(greedyBtn);
+        controlPanel.add(stopBtn);
+        controlPanel.add(bruteForceBtn);
+        controlPanel.add(exactBtn);
+        controlPanel.add(greedyBtn);
+
+        // Add Control & DrawPanel to Main Panel
+        add(controlPanel, BorderLayout.NORTH);
+        add(drawPanel, BorderLayout.CENTER);
+    }
+
+    // Draws the selected polygon
+    public void polygonSelection() {
+        int index = polygonComboBox.getSelectedIndex();
+
+        if (index == 1){
+            setPanel(new PolygonPanel(PolygonShapes.createTriangle()));
+        }
+        else if (index == 2){
+            setPanel(new PolygonPanel(PolygonShapes.createSquare()));
+        }
+        else {
+            setPanel(new PolygonPanel(PolygonShapes.createTriangle()));
+        }
+
+        sumOfLengths.setText("Sum of Lengths: " + index);
+    }
+
+    // Redraws the draw panel
+    public void setPanel(JPanel drawPanel){
+        this.remove(this.drawPanel);
+        this.drawPanel = drawPanel;
+        this.add(drawPanel, BorderLayout.CENTER);
+        revalidate();
+        repaint();
     }
 
     public void exactApproach(){
