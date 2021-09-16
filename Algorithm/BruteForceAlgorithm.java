@@ -91,6 +91,12 @@ public class BruteForceAlgorithm {
         };
 
         //System.out.println(Triangulate(vertices3, 0, vertices3.length - 1));
+        
+        Point[] square = {
+            new Point(150, 80), new Point(400, 160), new Point(425, 300), new Point(150, 180)
+        };
+        
+        System.out.println(Triangulate(square, 0, square.length - 1));
     }
 
 }
