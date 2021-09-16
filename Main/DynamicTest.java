@@ -15,9 +15,9 @@ class Dynamictest {
         int n = vertices.length;
 
         // create a table for storing the solutions to subproblems
-        // `T[i][j]` stores the weight of the minimum-weight triangulation
+        // `SolutionsTable[i][j]` stores the weight of the minimum-weight triangulation
         // of the polygon below edge `ij`
-        Solution[][] T = new Solution[n][n];
+        Solution[][] SolutionsTable = new Solution[n][n];
 
         // fill the table diagonally using the recurrence relation
         for (int diagonal = 0; diagonal < n; diagonal++) {
@@ -25,12 +25,12 @@ class Dynamictest {
                 // If the polygon has less than 3 vertices, triangulation is
                 // not possible
                 if (j <= i + 2) {
-                    T[i][j]  = new Solution();
-                    T[i][j].cost = 0;
+                    SolutionsTable[i][j]  = new Solution();
+                    SolutionsTable[i][j].cost = 0;
                     continue;
                 }
 
-                T[i][j] = new Solution();
+                SolutionsTable[i][j] = new Solution();
 
                 // consider all possible triangles `ikj` within the polygon
                 for (int k = i + 1; k <= j - 1; k++) {
@@ -61,26 +61,26 @@ class Dynamictest {
                         q2.add(vertices[k]);
                     }
 
-                    Solution left = T[i][k];
-                    Solution right = T[k][j];
+                    Solution left = SolutionsTable[i][k];
+                    Solution right = SolutionsTable[k][j];
                     
                     double costOfBothSides = weight + left.cost + right.cost;
 
-                    if (T[i][j].cost > costOfBothSides) {
-                        T[i][j].cost = costOfBothSides;
+                    if (SolutionsTable[i][j].cost > costOfBothSides) {
+                        SolutionsTable[i][j].cost = costOfBothSides;
 
                         left.p1.addAll(right.p1);
                         q1.addAll(left.p1);
-                        T[i][j].p1 = q1;
+                        SolutionsTable[i][j].p1 = q1;
 
                         left.p2.addAll(right.p2);
                         q2.addAll(left.p2);
-                        T[i][j].p2 = q2;
+                        SolutionsTable[i][j].p2 = q2;
 
                     }
 
                     // choose vertex `k` that leads to the minimum total weight
-                    //T[i][j].cost = Double.min(T[i][j].cost, weight + T[i][k].cost + T[k][j].cost);
+                    //T[i][j].cost = Double.min(SolutionsTable[i][j].cost, weight + SolutionsTable[i][k].cost + SolutionsTable[k][j].cost);
                     
                 }
             }
@@ -88,9 +88,9 @@ class Dynamictest {
 
         // the top-rightmost element in the table stores the result
         for (int i = 0; i < n - 1; i++) {
-            System.out.println(Arrays.toString(T[i]));
+            System.out.println(Arrays.toString(SolutionsTable[i]));
         }
-        return T[0][n - 1];
+        return SolutionsTable[0][n - 1];
     }
 
     public static void main(String[] args) {
