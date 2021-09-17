@@ -1,5 +1,7 @@
 package Algorithm;
 
+// Student: Jacob Tupe - 18018323
+
 public class Point
 {
   private int x, y;

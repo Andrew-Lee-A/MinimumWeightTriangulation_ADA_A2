@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // Student:
-public class BFA {
+public class BruteForce_GUI {
     /**
      *
      * @param vertices

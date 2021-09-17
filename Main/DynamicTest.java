@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Student: Jacob Tupe - 18018323
+
 class DynamicTest {
 
     // Function to calculate the weight of optimal triangulation of a convex polygon

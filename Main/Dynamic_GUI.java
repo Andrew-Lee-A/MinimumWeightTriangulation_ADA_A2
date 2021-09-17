@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DYNA {
+// Student: Jacob Tupe - 18018323
+
+public class Dynamic_GUI {
 
     // Function to calculate the weight of optimal triangulation of a convex polygon
     // represented by a given set of vertices

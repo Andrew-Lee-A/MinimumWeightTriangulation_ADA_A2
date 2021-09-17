@@ -5,6 +5,8 @@ import Algorithm.*;
 import javax.swing.*;
 import java.awt.*;
 
+// Student: Jacob Tupe - 18018323
+
 public class GUIPanel extends JPanel {
     // JPanel Components
     private final JComboBox<String> polygonComboBox;
@@ -125,17 +127,17 @@ public class GUIPanel extends JPanel {
     }
 
     public void exactApproach(){
-        solution = new DYNA().Triangulate(vertices);
+        solution = new Dynamic_GUI().Triangulate(vertices);
         initialisePolygon(solution);
     }
 
     public void bruteForceApproach(){
-        solution = new BFA().Triangulate(vertices, 0, vertices.length-1);
+        solution = new BruteForce_GUI().Triangulate(vertices, 0, vertices.length-1);
         initialisePolygon(solution);
     }
 
     public void greedyApproach(){
-        solution = new GA().Triangulate(vertices, 0, vertices.length-1);
+        solution = new Greedy_GUI().Triangulate(vertices, 0, vertices.length-1);
         initialisePolygon(solution);
     }
 

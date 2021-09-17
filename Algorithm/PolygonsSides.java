@@ -1,5 +1,7 @@
 package Algorithm;
 
+// Student: Jacob Tupe - 18018323
+
 public class PolygonsSides {
 
     public static final int[][] P_3_SIDES = {

@@ -1,9 +1,14 @@
-package Algorithm;
+package Main;
+
+import Algorithm.Point;
+import Algorithm.Solution;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+// Student: Jacob Tupe - 18018323
 
 public class DrawingPanel extends JPanel {
     private final Polygon polygon;
@@ -31,7 +36,7 @@ public class DrawingPanel extends JPanel {
         g.setColor(Color.black);
 
         if (!solution.p1.isEmpty()){
-            List<Point> p1 = solution.p1;
+            List<Algorithm.Point> p1 = solution.p1;
             List<Point> p2 = solution.p2;
 
             for (int i = 0; i < p1.size(); i++) {

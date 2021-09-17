@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Point;
 
+// Student: Jacob Tupe - 18018323
+
 public class GUIFrame extends JFrame{
     // Panel
     GUIPanel panel = new GUIPanel();

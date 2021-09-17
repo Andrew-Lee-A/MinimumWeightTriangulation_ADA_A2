@@ -2,6 +2,8 @@ package Algorithm;
 
 import java.util.Arrays;
 
+// Student: Jacob Tupe - 18018323
+
 class DynamicExactAlgorithm {
 
     // Function to calculate the weight of optimal triangulation of a convex polygon

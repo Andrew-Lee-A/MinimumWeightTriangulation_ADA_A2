@@ -12,6 +12,8 @@ import java.util.List;
  *
  * @author Andrew_PC
  */
+
+// Student: Jacob Tupe - 18018323
 public class Solution {
     public double cost = Double.MAX_VALUE;
     public List<Point> p1 = new ArrayList<>();

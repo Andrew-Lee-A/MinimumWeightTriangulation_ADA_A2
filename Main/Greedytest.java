@@ -11,7 +11,7 @@ import java.util.List;
 
 // Brute force algorithm that solves the convex polygon triangulation problem for the minimum sum of interior edges
 // Student: Andrew Lee 17983766
-// Student: 
+// Student: Jacob Tupe - 18018323
 
 class Greedytest {
     
