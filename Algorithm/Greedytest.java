@@ -1,10 +1,7 @@
-package Main;
+package Algorithm;
 
+import Main.PolygonShapes;
 import static Algorithm.BruteForceTest.Triangulate;
-import Algorithm.Point;
-import Algorithm.PolygonShapes;
-import Algorithm.PolygonsSides;
-import Algorithm.Solution;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,19 +46,16 @@ class Greedytest {
             if (k == i + 1) {
                 minList.add(vertices[j].dist(vertices[k]));
                 distance = vertices[j].dist(vertices[k]);
-                System.out.println(distance + ": (j,k)" + j + "," + k + " : " + i);
                 
             // if the k value is the last vertex, an edge is drawn between i and k  
             } else if (k == j - 1) {
                 minList.add(vertices[k].dist(vertices[i]));
                 distance = vertices[k].dist(vertices[i]);
-                System.out.println(distance + ": (i,k)" + i + "," + k + " : " + j);
                 
             // otherwise, a vertex is chosen that leads two to edges drawn. j to k and i to k.
             } else {
                 minList.add(Double.min(vertices[j].dist(vertices[k]), vertices[k].dist(vertices[i])));
                 distance = vertices[j].dist(vertices[k]) + vertices[k].dist(vertices[i]);
-                System.out.println(distance + ": " + vertices[j].dist(vertices[k]) + ": " + j + "," + k + " + " + vertices[k].dist(vertices[i]) + ": " + i + "," + k + " Min: " + Double.min(vertices[j].dist(vertices[k]), vertices[k].dist(vertices[i])));
             }
 
         }
@@ -94,7 +88,6 @@ class Greedytest {
         }
         
         
-        System.out.println("Shortest: " + shortest + " Weight:" + weight);
         
         Solution left = Triangulate(vertices, i, shortest);
         Solution right = Triangulate(vertices, shortest, j);
@@ -108,8 +101,6 @@ class Greedytest {
         left.p2.addAll(right.p2);
         q2.addAll(left.p2);
         s.p2 = q2;
-        
-        System.out.println("Cost: " + s.cost);
         return s;
     }
 
@@ -143,10 +134,6 @@ class Greedytest {
             new Point(5,-2)
         };
 
-
-        Point[] vert = PolygonShapes.getPointArray(PolygonShapes.createHendacagon());
-
-        System.out.println(Triangulate(vert, 0, vert.length - 1));
         
         //Hexagon
         Point[] vertices6 = {

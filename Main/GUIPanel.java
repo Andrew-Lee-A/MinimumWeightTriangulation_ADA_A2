@@ -1,5 +1,6 @@
 package Main;
 
+import Algorithm.Solution;
 import Algorithm.*;
 
 import javax.swing.*;

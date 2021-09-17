@@ -41,23 +41,17 @@ public class BruteForceTest {
             // if the k value is the initial vertex, an edge is drawn between j and k
             if (k == i + 1) {
                 weight = vertices[j].dist(vertices[k]);
-                System.out.println(weight + ": (j,k)" + j + "," + k + " : " + i);
                 q1.add(vertices[j]);
                 q2.add(vertices[k]);
                 //drawArray.add(new ArrayList<>(Arrays.asList(vertices[j], vertices[k])));
             // if the k value is the last vertex, an edge is drawn between i and k
             } else if (k == j - 1) {
                 weight = vertices[k].dist(vertices[i]);
-                System.out.println(weight + ": (i,k)" + i + "," + k + " : " + j);
-                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[i], vertices[k])));
                 q1.add(vertices[i]);
                 q2.add(vertices[k]);
             // otherwise, a vertex is chosen that leads two to edges drawn. j to k and i to k.
             } else {
                 weight = vertices[j].dist(vertices[k]) + vertices[k].dist(vertices[i]);
-                System.out.println(weight + ": " + vertices[j].dist(vertices[k]) + ": " + j + "," + k + " + " + vertices[k].dist(vertices[i]) + ": " + i + "," + k);
-                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[j], vertices[k])));
-                //drawArray.add(new ArrayList<>(Arrays.asList(vertices[i], vertices[k])));
                 q1.add(vertices[i]);
                 q2.add(vertices[k]);
                 q1.add(vertices[j]);
@@ -80,10 +74,7 @@ public class BruteForceTest {
                 s.p2 = q2;
             }
                 
-//            s.cost = Double.min(s.cost, weight + Triangulate(vertices, i, k).cost
-//                    + Triangulate(vertices, k, j).cost);
                     
-            System.out.println("Cost: " + s.cost);
         }
         return s;
     }

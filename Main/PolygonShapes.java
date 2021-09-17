@@ -1,7 +1,9 @@
-package Algorithm;
+package Main;
 
 // Student: Jacob Tupe - 18018323
 
+import Algorithm.Point;
+import Main.PolygonsSides;
 import java.awt.*;
 
 public class PolygonShapes {

@@ -1,8 +1,8 @@
 package Main;
 
+
 import Algorithm.Point;
 import Algorithm.Solution;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;

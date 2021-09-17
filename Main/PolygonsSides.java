@@ -1,4 +1,4 @@
-package Algorithm;
+package Main;
 
 // Student: Jacob Tupe - 18018323
 

@@ -2,9 +2,9 @@ package Main;
 // Brute force algorithm that solves the convex polygon triangulation problem for the minimum sum of interior edges
 // Student: Andrew Lee 17983766
 
+
 import Algorithm.Point;
 import Algorithm.Solution;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

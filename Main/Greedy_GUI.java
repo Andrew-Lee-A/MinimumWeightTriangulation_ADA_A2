@@ -1,10 +1,8 @@
 package Main;
 
-import static Algorithm.BruteForceTest.Triangulate;
 import Algorithm.Point;
-import Algorithm.PolygonShapes;
-import Algorithm.PolygonsSides;
 import Algorithm.Solution;
+import static Algorithm.BruteForceTest.Triangulate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
