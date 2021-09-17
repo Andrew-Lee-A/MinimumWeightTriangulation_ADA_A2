@@ -2,6 +2,8 @@ package Main;
 
 import static Algorithm.BruteForceTest.Triangulate;
 import Algorithm.Point;
+import Algorithm.PolygonShapes;
+import Algorithm.PolygonsSides;
 import Algorithm.Solution;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -140,8 +142,11 @@ class Greedytest {
             new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6,1),
             new Point(5,-2)
         };
-        
-        System.out.println(Triangulate(vertices5, 0, vertices5.length - 1));
+
+
+        Point[] vert = PolygonShapes.getPointArray(PolygonShapes.createHendacagon());
+
+        System.out.println(Triangulate(vert, 0, vert.length - 1));
         
         //Hexagon
         Point[] vertices6 = {

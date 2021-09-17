@@ -1,8 +1,6 @@
 package Main;
 
-import Algorithm.BFA;
-import Algorithm.DrawingPanel;
-import Algorithm.PolygonShapes;
+import Algorithm.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +8,17 @@ import java.awt.*;
 public class GUIPanel extends JPanel {
     // JPanel Components
     private final JComboBox<String> polygonComboBox;
-    private final JButton bruteForceBtn, exactBtn, greedyBtn, stopBtn;
+    private final JButton bruteForceBtn, exactBtn, greedyBtn;
     private final JLabel sumOfLengths;
     // Command Panel
     private final JPanel controlPanel;
 
+    // Solution
+    private Solution solution;
+
+    // Shapes
     private Polygon selectedPolygon;
+    private Algorithm.Point[] vertices;
 
     // Variables
     public final int PANEL_WIDTH = 900;
@@ -31,6 +34,9 @@ public class GUIPanel extends JPanel {
         super();
         setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
         setLayout(new BorderLayout());
+
+        // Initialise variables
+        solution = new Solution();
 
         // Initialise Combo box
         String[] polygonOptions = {"Select a Polygon", "3 sides - Triangle", "4 sides - Square",
@@ -49,8 +55,6 @@ public class GUIPanel extends JPanel {
         exactBtn.addActionListener(e -> exactApproach());
         greedyBtn = new JButton("Greedy Algorithm");
         greedyBtn.addActionListener(e -> greedyApproach());
-        stopBtn = new JButton("Stop");
-        stopBtn.setEnabled(false);
 
         // Layout Commands Panel with Flow Layout
         controlPanel = new JPanel();
@@ -60,7 +64,6 @@ public class GUIPanel extends JPanel {
         // Label
         controlPanel.add(sumOfLengths);
         // Buttons
-        controlPanel.add(stopBtn);
         controlPanel.add(bruteForceBtn);
         controlPanel.add(exactBtn);
         controlPanel.add(greedyBtn);
@@ -101,6 +104,7 @@ public class GUIPanel extends JPanel {
                 break;
         }
 
+        vertices = PolygonShapes.getPointArray(selectedPolygon);
         updateText(0);
     }
 
@@ -113,19 +117,26 @@ public class GUIPanel extends JPanel {
         repaint();
     }
 
+    public void initialisePolygon(Solution s){
+        DrawingPanel dp = new DrawingPanel(selectedPolygon);
+        updateText(s.cost);
+        dp.setSolution(s);
+        setPanel(dp);
+    }
+
     public void exactApproach(){
-        JOptionPane.showMessageDialog(this, "Exact Approach\nNot implemented yet.");
+        solution = new DYNA().Triangulate(vertices);
+        initialisePolygon(solution);
     }
 
     public void bruteForceApproach(){
-        Algorithm.Point[] vertices = PolygonShapes.getPointArray(selectedPolygon);
-
-        double cost = new BFA().Triangulate(vertices, 0, vertices.length-1);
-        updateText(cost);
+        solution = new BFA().Triangulate(vertices, 0, vertices.length-1);
+        initialisePolygon(solution);
     }
 
     public void greedyApproach(){
-        JOptionPane.showMessageDialog(this, "Greedy Approach\nNot implemented yet.");
+        solution = new GA().Triangulate(vertices, 0, vertices.length-1);
+        initialisePolygon(solution);
     }
 
     public void updateText(double cost){

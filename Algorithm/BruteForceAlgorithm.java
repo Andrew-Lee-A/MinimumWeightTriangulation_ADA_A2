@@ -64,7 +64,7 @@ public class BruteForceAlgorithm {
         System.out.println(Triangulate(vertices,
                 0, vertices.length - 1));
 
-        System.out.println("/n/n");
+        System.out.println("\n\n");
 
         //Triangle
         Point[] vertices3 = {
