@@ -1,13 +1,12 @@
 package Main;
 
-
 import Algorithm.Point;
 import Algorithm.Solution;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
+// Student: Andrew Lee 17983766
 // Student: Jacob Tupe - 18018323
 
 public class DrawingPanel extends JPanel {
@@ -40,7 +39,6 @@ public class DrawingPanel extends JPanel {
             List<Point> p2 = solution.p2;
 
             for (int i = 0; i < p1.size(); i++) {
-                //g.drawLine(p1.get(i).getX(), p2.get(i).getX(), p1.get(i).getY(), p2.get(i).getY());
                 g.drawLine(p1.get(i).getX(), p1.get(i).getY(), p2.get(i).getX(), p2.get(i).getY());
             }
         }

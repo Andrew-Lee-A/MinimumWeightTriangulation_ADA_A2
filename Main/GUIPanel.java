@@ -1,11 +1,11 @@
 package Main;
 
 import Algorithm.Solution;
-import Algorithm.*;
 
 import javax.swing.*;
 import java.awt.*;
 
+// Student: Andrew Lee 17983766
 // Student: Jacob Tupe - 18018323
 
 public class GUIPanel extends JPanel {
@@ -42,9 +42,21 @@ public class GUIPanel extends JPanel {
         solution = new Solution();
 
         // Initialise Combo box
-        String[] polygonOptions = {"Select a Polygon", "3 sides - Triangle", "4 sides - Square",
-                "6 sides - Hexagon", "7 sides - Heptagon", "8 sides - Octagon", "11 sides - Hendecagon",
-                "17 sides - Heptagon", "20 sides - Icosagon", "36 sides - Hextriacontagon"};
+        String[] polygonOptions = {"Select a Polygon",
+                "3 sides - Triangle",
+                "4 sides - Square",
+                "5 sides - Pentagon",
+                "6 sides - Hexagon",
+                "7 sides - Heptagon",
+                "8 sides - Octagon",
+                "9 sides - Nonagon",
+                "10 sides - Decagon",
+                "11 sides - Hendecagon",
+                "12 sides - Dodecagon",
+                "18 sides - Octadecagon",
+                "20 sides - Icosagon",
+                "23 sides - Icositrigon",
+                "33 sides - Tritriacontagon"};
         polygonComboBox = new JComboBox<>(polygonOptions);
         polygonComboBox.addActionListener(e -> polygonSelection());
 
@@ -81,29 +93,65 @@ public class GUIPanel extends JPanel {
         int index = polygonComboBox.getSelectedIndex();
 
         switch (index) {
-            // Triangle
+                // Triangle
             case 1:
                 setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createTriangle()));
                 break;
-            // Square
+                // Square
             case 2:
                 setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createSquare()));
                 break;
+                // Pentagon
             case 3:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createPentagon()));
+                break;
+                // Hexagon
+            case 4:
                 setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHexagon()));
                 break;
-            case 4:
-                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createSeptagon()));
-                break;
+                // Septagon
             case 5:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHeptagon()));
+                break;
+                // Octagon
+            case 6:
                 setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createOctagon()));
                 break;
-            case 6:
-                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHendacagon()));
+                // Nonagon
+            case 7:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createNonagon()));
+                break;
+                // Decagon
+            case 8:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createDecagon()));
+                break;
+                // Hendecagon
+            case 9:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createHendecagon()));
+                break;
+                // Dodecagon
+            case 10:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createDodecagon()));
+                break;
+                // Octadecagon
+            case 11:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createOctadecagon()));
+                break;
+                // Icosagon
+            case 12:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createIcosagon()));
+                break;
+                // Icositrigon
+            case 13:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createIcositrigon()));
+                break;
+                // Tritriacontagon
+            case 14:
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createTritriacontagon()));
                 break;
             // Anything Else
             default:
-                JOptionPane.showMessageDialog(this, "Polygon Not Selected");
+                setPanel(new DrawingPanel(selectedPolygon = PolygonShapes.createTriangle()));
                 break;
         }
 

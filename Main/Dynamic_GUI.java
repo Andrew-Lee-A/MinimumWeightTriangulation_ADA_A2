@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Student: Andrew Lee 17983766
 // Student: Jacob Tupe - 18018323
 
 public class Dynamic_GUI {

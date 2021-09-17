@@ -4,10 +4,9 @@ package Algorithm;
 // Student: Jacob Tupe - 18018323
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-// Student: 
+
 public class BruteForceTest {
 
     /**
