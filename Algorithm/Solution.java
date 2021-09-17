@@ -16,10 +16,10 @@ public class Solution {
     public double cost = Double.MAX_VALUE;
     public List<Point> p1 = new ArrayList<>();
     public List<Point> p2 = new ArrayList<>();
-    
+
     @Override
     public String toString(){
 //        return Double.toString(this.cost) + "\n" + p1.toString() + "\n"+ p2.toString();
-            return Double.toString(this.cost) + p1.toString() + p2.toString();
+            return this.cost + p1.toString() + p2.toString();
     }
 }

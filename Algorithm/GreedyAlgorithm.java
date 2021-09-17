@@ -7,7 +7,7 @@ import java.util.Collections;
 // Student: Andrew Lee 17983766
 // Student: 
 
-class GreedyAlgorithm {
+public class GreedyAlgorithm {
 
     /**
      * 
