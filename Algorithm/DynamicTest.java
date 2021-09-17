@@ -12,30 +12,29 @@ class DynamicTest {
     public static Solution Triangulate(Point[] vertices) {
         
         int n = vertices.length;
-
-
         Solution[][] SolutionsTable = new Solution[n][n];
-
-
+        
+        //fill the table diagonally, starting from bottom up
         for (int diagonal = 0; diagonal < n; diagonal++) {
             for (int i = 0, j = diagonal; j < n; i++, j++) {
-                
 
+                // if the polygon to consider is a triangle or smaller
                 if (j <= i + 2) {
                     SolutionsTable[i][j]  = new Solution();
                     SolutionsTable[i][j].cost = 0;
                     continue;
                 }
-
+                
+                //create a Solution object for each index we are interested in
                 SolutionsTable[i][j] = new Solution();
 
-                
+                //k represents the point to connect to
                 for (int k = i + 1; k <= j - 1; k++) {
                     double weight;
                     List<Point> q1 = new ArrayList<>();
                     List<Point> q2 = new ArrayList<>();
                     
-                    // The weight of triangulation is the length of its perimeter
+                    // The weight of triangulation is the length of it's interior edges
                     if (k == i + 1) {
                         weight = vertices[j].dist(vertices[k]);
                         
@@ -58,12 +57,14 @@ class DynamicTest {
                         q2.add(vertices[k]);
                     }
 
+                    //Find the solution for the left side from the table
                     Solution left = SolutionsTable[i][k];
+                    //Find the solution for the right side from the table
                     Solution right = SolutionsTable[k][j];
                     
                     double costOfBothSides = weight + left.cost + right.cost;
                     
-                    //get the minimum
+                    //get the minimum cost
                     if (SolutionsTable[i][j].cost > costOfBothSides) {
                         SolutionsTable[i][j].cost = costOfBothSides;
                         
