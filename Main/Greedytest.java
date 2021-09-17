@@ -1,9 +1,11 @@
 package Main;
 
+import static Algorithm.BruteForceTest.Triangulate;
 import Algorithm.Point;
 import Algorithm.Solution;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 // Brute force algorithm that solves the convex polygon triangulation problem for the minimum sum of interior edges
 // Student: Andrew Lee 17983766
@@ -65,29 +67,46 @@ class Greedytest {
         // shortest is the index of the shortest edge in the minList + i + 1 ( i + 1: because shortest represents k and k starts at i + 1)
         shortest = minList.indexOf(Collections.min(minList)) + 1 + i;
         
+        List<Point> q1 = new ArrayList<>();
+        List<Point> q2 = new ArrayList<>();
+            
         // if the k value is the intial vertex, the weight is the edge drawn between j and k
         if (shortest == i + 1) {
             weight = vertices[j].dist(vertices[shortest]);
-            s.p1.add(vertices[j]);
-            s.p2.add(vertices[shortest]);
+            q1.add(vertices[j]);
+            q2.add(vertices[shortest]);
             
         // if the k value is the last vertex, the weight is the edge drawn between i and k
         } else if (shortest == j - 1) {
             weight = vertices[shortest].dist(vertices[i]);
-            s.p1.add(vertices[i]);
-            s.p2.add(vertices[shortest]);
+            q1.add(vertices[i]);
+            q2.add(vertices[shortest]);
             
         // otherwise, the k is chosen that leads two to edges drawn. The weight is the sum of the edges j to k and i to k.
         } else {
             weight = vertices[j].dist(vertices[shortest]) + vertices[shortest].dist(vertices[i]);
-            s.p1.add(vertices[i]);
-            s.p2.add(vertices[shortest]);
-            s.p1.add(vertices[j]);
-            s.p2.add(vertices[shortest]);
+            q1.add(vertices[i]);
+            q2.add(vertices[shortest]);
+            q1.add(vertices[j]);
+            q2.add(vertices[shortest]);
         }
         
+        
         System.out.println("Shortest: " + shortest + " Weight:" + weight);
-        s.cost = weight + Triangulate(vertices, i, shortest).cost + Triangulate(vertices, shortest, j).cost;
+        
+        Solution left = Triangulate(vertices, i, shortest);
+        Solution right = Triangulate(vertices, shortest, j);
+        
+        s.cost = weight + left.cost + right.cost;
+                
+        left.p1.addAll(right.p1);
+        q1.addAll(left.p1);
+        s.p1 = q1;
+        
+        left.p2.addAll(right.p2);
+        q2.addAll(left.p2);
+        s.p2 = q2;
+        
         System.out.println("Cost: " + s.cost);
         return s;
     }
@@ -130,7 +149,14 @@ class Greedytest {
             new Point(1, 5), new Point(3, 3), new Point(2, 1)
         };
 
-        //System.out.println(Triangulate(vertices6, 0, vertices6.length - 1));
+        System.out.println(Triangulate(vertices6, 0, vertices6.length - 1));
+        
+        Point[] square = {
+            new Point(150, 80), new Point(400, 160), new Point(425, 300), new Point(150, 180)
+        };
+        
+        System.out.println(Triangulate(square, 0, square.length - 1));
     }
+    
 
 }
