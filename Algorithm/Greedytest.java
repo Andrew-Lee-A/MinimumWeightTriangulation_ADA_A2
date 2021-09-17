@@ -106,48 +106,49 @@ class Greedytest {
 
     // Driver code
     public static void main(String[] args) {
-
-        // vertices are given in clockwise order
+        System.out.println("Greedy Divide and Conq\n");
         Point[] vertices
                 = {new Point(0, 0), new Point(2, 0),
                     new Point(2, 1), new Point(1, 2),
                     new Point(0, 1)};
-
-//    System.out.println(MWT(vertices,
-//                           0, vertices.length - 1));
-//    
-        System.out.println("/n/n");
+        System.out.println("==Test vertices 1==");
+        System.out.println(Triangulate(vertices,
+                0, vertices.length - 1));
 
         //Triangle
         Point[] vertices3 = {
             new Point(0, 0), new Point(1, 1), new Point(0, 1)
         };
+        System.out.println("\n==Triangle==");
+        System.out.println(Triangulate(vertices3,
+                0, vertices3.length - 1));
 
         //Square
         Point[] vertices4 = {
             new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 0)
         };
 
-        //Pentagon (Greedy fails on this shape)
+        System.out.println("\n==Square==");
+        System.out.println(Triangulate(vertices4,
+                0, vertices4.length - 1));
+
+        //pentagon (Greedy fails on this shape)
         Point[] vertices5 = {
-            new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6,1),
-            new Point(5,-2)
+            new Point(0, 0), new Point(0, 2), new Point(5, 4), new Point(6, 1),
+            new Point(5, -2)
         };
 
-        
+        System.out.println("\n==Pentagon==");
+        System.out.println(Triangulate(vertices5, 0, vertices5.length - 1));
+
         //Hexagon
         Point[] vertices6 = {
             new Point(0, 0), new Point(-2, 2), new Point(-1, 4),
             new Point(1, 5), new Point(3, 3), new Point(2, 1)
         };
 
+        System.out.println("\n==Hexagon==");
         System.out.println(Triangulate(vertices6, 0, vertices6.length - 1));
-        
-        Point[] square = {
-            new Point(150, 80), new Point(400, 160), new Point(425, 300), new Point(150, 180)
-        };
-        
-        System.out.println(Triangulate(square, 0, square.length - 1));
     }
     
 
